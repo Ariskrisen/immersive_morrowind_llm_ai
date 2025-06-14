@@ -33,7 +33,7 @@ speech_to_text:
     type: vosk
 
    microsoft_speech:
-      key: ENTER_HEREAdd commentMore actions
+      key: ENTER_HERE
       known_words: Морровинд,Вварденфелл,Кай,Косадес,Балмора,Сейда Нин,Селлус,Гравиус,Ганциэль,Дуар,Сокуциус,Эргалла,Тель,Мора
       language: ru-RU
       region: northeurope
