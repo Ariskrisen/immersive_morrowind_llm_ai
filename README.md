@@ -6,7 +6,7 @@
 
 **The key difference of this fork** is the implementation of a **completely free speech generation system (TTS) with cloning of original voices from the game** using cloud GPUs on [Kaggle](https://www.kaggle.com/).
 
-This fork is intended for enthusiasts who want to get high-quality voice acting without resorting to paid services.
+This fork is intended for enthusiasts who want to get voice acting without resorting to paid services.
 Naturally the quality is far from Elevenlabs
 Kaggle guide is below
 # RU
