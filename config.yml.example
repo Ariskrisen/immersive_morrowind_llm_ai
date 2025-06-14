@@ -32,6 +32,13 @@ speech_to_text:
   system:
     type: vosk
 
+   microsoft_speech:
+      key: ENTER_HEREAdd commentMore actions
+      known_words: Морровинд,Вварденфелл,Кай,Косадес,Балмора,Сейда Нин,Селлус,Гравиус,Ганциэль,Дуар,Сокуциус,Эргалла,Тель,Мора
+      language: ru-RU
+      region: northeurope
+
+
     vosk:
       model_path: D:\Games\vosk-model-small-ru-0.22
       device_index: 0
