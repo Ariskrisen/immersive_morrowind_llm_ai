@@ -680,9 +680,6 @@ The following changes were made to implement this feature:
 - **`tts/system.py` (modified):** Fixed audio processing logic via `ffmpeg` to remove distortions and added support for new `speed` and `pitch` parameters from config.
 - **`tts/backend/abstract.py` (modified):** Extended request structure to support voice ID.
 
-*(Optional) If you want to make a Pull Request to the main project:*
-> I plan to propose these changes to the original repository author as a Pull Request.
-
 # RU 
 
 --
