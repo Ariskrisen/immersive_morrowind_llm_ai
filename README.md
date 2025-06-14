@@ -1,5 +1,26 @@
 # Server providing AI features for RPGs
 
+# EN
+
+**IMPORTANT NOTE:** This is a fork of the original [Immersive Morrowind LLM AI](https://github.com/drzdo/immersive_morrowind_llm_ai) project by **drzdo**. Huge thanks to the author for his incredible work!
+
+**The key difference of this fork** is the implementation of a **completely free speech generation system (TTS) with cloning of original voices from the game** using cloud GPUs on [Kaggle](https://www.kaggle.com/).
+
+This fork is intended for enthusiasts who want to get high-quality voice acting without resorting to paid services.
+Naturally the quality is far from Elevenlabs
+Kaggle guide is below
+# RU
+
+**ВАЖНОЕ ПРИМЕЧАНИЕ:** Это форк оригинального проекта [Immersive Morrowind LLM AI](https://github.com/drzdo/immersive_morrowind_llm_ai) от **drzdo**. Огромное спасибо автору за его невероятную работу!
+
+**Ключевым отличием этого форка** является реализация **полностью свободной системы генерации речи (TTS) с клонированием оригинальных голосов из игры** с использованием облачных графических процессоров на [Kaggle](https://www.kaggle.com/).
+
+Этот форк предназначен для энтузиастов, желающих получить озвучку, не прибегая к платным сервисам.
+Естественно качество далеко от Elevenlabs
+Гайд по kaggle находится внизу 
+
+---
+
 This is an experimental solution of integrating LLMs into the good old Morrowind.
 
 What it does in short:
@@ -624,3 +645,73 @@ hold
 курио всс скажи губерону что ты предвкушаешь завтрашний день, и визит будущи несомненно великих актеров Морровинда, а может и всего Тамриэля!
 ```
 </details>
+
+--
+# EN
+
+
+## ✨ Free Voiceovers with Voice Cloning (Kaggle TTS)
+
+This section describes how to set up and use the custom speech generation system added in this fork. It allows you to voice NPCs with their original voices from the game absolutely free.
+
+### How it works
+
+The system uses a custom web server running in [Kaggle Notebook](https://www.kaggle.com/code/ariskr/free-tts-for-immersive-morrowind-mod?scriptVersionId=245416721), which generates speech using the Coqui XTTS v2 model. The mod sends the text and the NPC voice ID (e.g. `dark_elf_male`) to this server, and the server clones the desired voice and returns the finished audio file.
+
+### Step 1: Preparation
+1. **Create a "Soul Library":** Collect one audio sample for each race and gender from the `Morrowind\Data Files\Sound\Vo\` folder. Rename them to the pattern `race_sex.mp3` (e.g. `dark_elf_male.mp3`, `argonian_female.mp3`).
+2. **Upload to Kaggle:** Create a public dataset in Kaggle and upload these 20 audio files to it.
+3. **Set up a notebook:** Open [this Kaggle Notebook](https://www.kaggle.com/code/ariskr/free-tts-for-immersive-morrowind-mod?scriptVersionId=245416721), connect your dataset with voices to it and paste your token from `ngrok`.
+
+### Step 2: Run
+1. Run all cells in the Kaggle notebook.
+2. Copy the public URL that `ngrok` generates.
+3. Set up `config.yaml` in this fork, pointing the `text_to_speech` -> `openai` -> `api_base` section to your URL.
+4. Run the mod.
+
+### Step 3: Voice Tuning
+- **Selecting a voice to clone:** Automatically based on the NPC's race and gender.
+- **Fine-tuning (speed, pitch):** Controlled directly via the `speed` and `pitch` parameters in the `ffmpeg` section of your `config.yaml`.
+
+### Code Changes
+The following changes were made to implement this feature:
+- **`tts/backend/openai.py` (new file):** Custom backend that detects the NPC's voice and sends a special request to the Kaggle server.
+
+- **`tts/system.py` (modified):** Fixed audio processing logic via `ffmpeg` to remove distortions and added support for new `speed` and `pitch` parameters from config.
+- **`tts/backend/abstract.py` (modified):** Extended request structure to support voice ID.
+
+*(Optional) If you want to make a Pull Request to the main project:*
+> I plan to propose these changes to the original repository author as a Pull Request.
+
+# RU 
+
+--
+
+## ✨ Бесплатная озвучка с клонированием голосов (Kaggle TTS)
+
+Этот раздел описывает, как настроить и использовать кастомную систему генерации речи, добавленную в этом форке. Она позволяет озвучивать NPC их оригинальными голосами из игры абсолютно бесплатно.
+
+### Как это работает
+
+Система использует кастомный веб-сервер, запущенный в [Kaggle Notebook](https://www.kaggle.com/code/ariskr/free-tts-for-immersive-morrowind-mod?scriptVersionId=245416721), который генерирует речь с помощью модели Coqui XTTS v2. Мод отправляет на этот сервер текст и идентификатор голоса NPC (например, `dark_elf_male`), а сервер клонирует нужный голос и возвращает готовый аудиофайл.
+
+### Шаг 1: Подготовка
+1.  **Создайте "Библиотеку Душ":** Соберите по одному аудио-семплу для каждой расы и пола из папки `Morrowind\Data Files\Sound\Vo\`. Переименуйте их по шаблону `раса_пол.mp3` (например, `dark_elf_male.mp3`, `argonian_female.mp3`). (В блокноте можно просто взять мой датасет)
+2.  **Загрузите в Kaggle:** Создайте публичный датасет в Kaggle и загрузите в него эти 20 аудиофайлов.
+3.  **Настройте ноутбук:** Откройте [этот Kaggle Notebook](https://www.kaggle.com/code/ariskr/free-tts-for-immersive-morrowind-mod?scriptVersionId=245416721), подключите к нему свой датасет с голосами и вставьте ваш токен от `ngrok`.
+
+### Шаг 2: Запуск
+1.  Запустите все ячейки в ноутбуке Kaggle.
+2.  Скопируйте публичный URL, который сгенерирует `ngrok`.
+3.  Настройте `config.yaml` в этом форке, указав в секции `text_to_speech` -> `openai` -> `api_base` ваш URL.
+4.  Запустите мод.
+
+### Шаг 3: Настройка голоса
+-   **Выбор голоса для клонирования:** Происходит автоматически на основе расы и пола NPC.
+-   **Тонкая настройка (скорость, высота):** Управляется напрямую через параметры `speed` и `pitch` в секции `ffmpeg` вашего `config.yaml`.
+
+### Внесенные изменения в код
+Для реализации этой функции были внесены следующие изменения:
+-   **`tts/backend/openai.py` (новый файл):** Кастомный бэкенд, который определяет голос NPC и отправляет специальный запрос на сервер Kaggle.
+-   **`tts/system.py` (модифицирован):** Исправлена логика обработки аудио через `ffmpeg` для устранения искажений и добавлена поддержка новых параметров `speed` и `pitch` из конфига.
+-   **`tts/backend/abstract.py` (модифицирован):** Расширена структура запроса для поддержки идентификатора голоса.
