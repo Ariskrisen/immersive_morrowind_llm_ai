@@ -654,6 +654,8 @@ hold
 
 This section describes how to set up and use the custom speech generation system added in this fork. It allows you to voice NPCs with their original voices from the game absolutely free.
 
+## Video-guide: https://youtu.be/06JaCY6x1MU
+
 ### How it works
 
 The system uses a custom web server running in [Kaggle Notebook](https://www.kaggle.com/code/ariskr/free-tts-for-immersive-morrowind-mod?scriptVersionId=245416721), which generates speech using the Coqui XTTS v2 model. The mod sends the text and the NPC voice ID (e.g. `dark_elf_male`) to this server, and the server clones the desired voice and returns the finished audio file.
@@ -687,6 +689,8 @@ The following changes were made to implement this feature:
 ## ✨ Бесплатная озвучка с клонированием голосов (Kaggle TTS)
 
 Этот раздел описывает, как настроить и использовать кастомную систему генерации речи, добавленную в этом форке. Она позволяет озвучивать NPC их оригинальными голосами из игры абсолютно бесплатно.
+
+## Видео-гайд: https://youtu.be/06JaCY6x1MU
 
 ### Как это работает
 
